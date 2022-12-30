@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from "react-router-dom";
-import { newProduct } from "../redux/apiCalls";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import FileBase from "react-file-base64";
@@ -82,7 +81,7 @@ const NewProduct = () => {
   const [brand, setBrand] = useState("");
   const [desc, setDesc] = useState("");
   const [category, setCategories] = useState("");
-  const [section, setSection] = useState("");
+  const [section, setSection] = useState("Men");
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [price, setPrice] = useState("");

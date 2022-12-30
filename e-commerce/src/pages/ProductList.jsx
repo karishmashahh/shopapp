@@ -7,7 +7,6 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import { mobile } from "../responsive";
-
 const Container = styled.div``;
 
 const Title = styled.h1`
@@ -51,7 +50,6 @@ const ProductList = () => {
       [e.target.name]: value,
     });
   };
-
   return (
     <Container>
       <Navbar />
@@ -61,7 +59,9 @@ const ProductList = () => {
         <Filter>
           <FilterText>Filter Products:</FilterText>
           <Select name="color" onChange={handleFilters}>
-            <Option disabled>Color</Option>
+            <Option disabled selected>
+              Color
+            </Option>
             <Option>white</Option>
             <Option>black</Option>
             <Option>red</Option>
@@ -70,7 +70,9 @@ const ProductList = () => {
             <Option>green</Option>
           </Select>
           <Select name="size" onChange={handleFilters}>
-            <Option disabled>Size</Option>
+            <Option disabled selected>
+              Size
+            </Option>
             <Option>XS</Option>
             <Option>S</Option>
             <Option>M</Option>

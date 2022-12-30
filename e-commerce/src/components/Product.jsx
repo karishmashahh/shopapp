@@ -101,12 +101,14 @@ const Product = ({ item, func }) => {
     const userid = user._id;
     const productid = item._id;
     const check = userid + productid;
+    const img = item.img;
+    setPresent(true);
     await publicRequest.post("/user/wishlist", {
       userid,
       productid,
       check,
+      img,
     });
-    setPresent(true);
   };
 
   const deleteProduct = async () => {
@@ -127,19 +129,19 @@ const Product = ({ item, func }) => {
     }
   };
 
-  const [image, setImage] = useState(item.img);
+  // const [image, setImage] = useState(item.img);
 
-  const getProduct = async () => {
-    try {
-      const res = await publicRequest.get("/products/find/" + item.productid);
-      setImage(res.data.img);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  if (item.productid) {
-    getProduct();
-  }
+  // const getProduct = async () => {
+  //   try {
+  //     const res = await publicRequest.get("/products/find/" + item.productid);
+  //     setImage(res.data.img);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+  // if (item.productid) {
+  //   getProduct();
+  // }
   const addToCart = async () => {
     try {
       const userid = user._id;
@@ -211,18 +213,16 @@ const Product = ({ item, func }) => {
   };
   return (
     <Container>
-      <Image src={image} />
+      <Image src={item.img} />
       <Info>
         <Cart />
         <Icon>
           {item.productid ? (
             <Link to={`/product/${item.productid}`} style={{ color: "black" }}>
-              {" "}
               <SearchOutlinedIcon />
             </Link>
           ) : (
             <Link to={`/product/${item._id}`} style={{ color: "black" }}>
-              {" "}
               <SearchOutlinedIcon />
             </Link>
           )}

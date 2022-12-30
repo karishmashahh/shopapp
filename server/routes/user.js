@@ -67,8 +67,8 @@ router.get("/wishlist", async (req, res) => {
   }
 });
 router.post("/wishlist", async (req, res) => {
-  const { userid, productid, check } = req.body;
-  const newWishlist = new Wishlist({ userid, productid, check });
+  const { userid, productid, check, img } = req.body;
+  const newWishlist = new Wishlist({ userid, productid, check, img });
   try {
     const savedProduct = await newWishlist.save();
     res.status(201).json(savedProduct);

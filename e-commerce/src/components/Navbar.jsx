@@ -7,6 +7,7 @@ import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useResolvedPath } from "react-router-dom";
 import { publicRequest } from "../requestMethod";
+import { useLocation } from "react-router";
 
 const Container = styled.div`
   height: 60px;
@@ -77,6 +78,7 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const [user, setUser] = useState("");
+  const location = useLocation();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("profile"));
     setUser(user);
@@ -100,6 +102,9 @@ const Navbar = () => {
   const search = () => {
     history(`/products/${catToSearch}`);
   };
+  const path = location.pathname.split("/")[1];
+  const isWishlist = path === "wishlist" ? 1 : 0;
+  const addProduct = path === "newproduct" ? 1 : 0;
 
   return (
     <Container>
@@ -140,7 +145,7 @@ const Navbar = () => {
               REGISTER
             </MenuItem>
           )}
-          {user && (
+          {user && !addProduct && (
             <MenuItem
               onClick={() => {
                 history("/newproduct");
@@ -149,7 +154,7 @@ const Navbar = () => {
               ADD PRODUCT
             </MenuItem>
           )}
-          {user && (
+          {user && !isWishlist && (
             <MenuItem
               onClick={() => {
                 history("/wishlist");

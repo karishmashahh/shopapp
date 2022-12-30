@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useNavigate } from "react-router";
 import logos from "../Images/logoss.png";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -58,9 +59,11 @@ const Brands = () => {
 
   return (
     <Container>
-      <ImgContainer>
-        <Image src={logos} />
-      </ImgContainer>
+      <Link to={"/products"}>
+        <ImgContainer>
+          <Image src={logos} />
+        </ImgContainer>
+      </Link>
       {/* <InfoContainer>
         <Title>fvfv</Title>
         <Desc>vfvf</Desc>
