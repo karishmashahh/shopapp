@@ -19,8 +19,6 @@ const ImgContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
-  flex: 1;
-
   flex-wrap: wrap;
 `;
 

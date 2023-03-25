@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import { useSelector } from "react-redux";
 import NewProduct from "./pages/NewProduct";
 import Wishlist from "./pages/Wishlist";
+import Success from "./pages/Success";
 import {
   BrowserRouter as Router,
   Routes,
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="success" element={<Success />} />
 
         <Route path="/register" element={<Register />} />
         <Route path="/newproduct" element={<NewProduct />} />

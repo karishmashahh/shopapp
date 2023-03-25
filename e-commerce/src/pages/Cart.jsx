@@ -8,8 +8,10 @@ import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethod";
 import { useNavigate } from "react-router";
+import { userRequest } from "../requestMethod";
 
-const KEY = process.env.FRONT_STRIPE_KEY;
+const KEY =
+  "pk_test_51M1l9eSJcd6tHdOrmYya69bpjXsC4LNoM2Eo2C4XjNE2KnzcjEEvq7u1HPQWvwtwpgyaLPFpW0h9btkLZOsI10G200PRG2wSw9";
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -185,11 +187,38 @@ const Cart = () => {
     };
     getProducts();
   }, []);
+
+  const handlee = async () => {
+    try {
+      const res = await userRequest.post("/checkout/create-checkout-session", {
+        products: productss,
+        userId: user,
+      });
+      if (res.data.url) {
+        productss.map((product) => {
+          deleteCart(product._id);
+        });
+        window.location.href = res.data.url;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const arr = [];
 
   for (let i = 0; i < cart.length; i++) {
     arr.push(cart[i].productid);
   }
+
+  const productss = [];
+
+  products.map((product) => {
+    if (arr.includes(product._id)) {
+      productss.push(product);
+    }
+  });
+
   let total = 0;
   const deleteCart = async (productid) => {
     const checkk = user + productid;
@@ -200,6 +229,21 @@ const Cart = () => {
   const handle = () => {
     history("/");
   };
+
+  // const stripePromise = loadStripe("pk_test_51M1l9eSJcd6tHdOrmYya69bpjXsC4LNoM2Eo2C4XjNE2KnzcjEEvq7u1HPQWvwtwpgyaLPFpW0h9btkLZOsI10G200PRG2wSw9");
+
+  //   const handlePayment = async () => {
+  //     try {
+  //       const stripe = await stripePromise;
+  //       const res = await publicRequest.get("/cart");
+  //       await stripe.redirectToCheckout({
+  //         sessionId: res.data.stripeSession.id,
+  //       });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
   return (
     <Container>
       <Navbar />
@@ -212,9 +256,8 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            {products.map(
+            {productss.map(
               (product) =>
-                arr.includes(product._id) &&
                 (total += product.price) && (
                   <Product>
                     <ProductDetail>
@@ -277,18 +320,23 @@ const Cart = () => {
               )}
             </SummaryItem>
 
-            <StripeCheckout
+            {/* <StripeCheckout
               name="Lama Shop"
               image="https://avatars.githubusercontent.com/u/1486366?v=4"
               billingAddress
               shippingAddress
-              description={`Your total is $${cart.total}`}
-              amount={cart.total * 100}
+              description={
+                total >= 500
+                  ? `Your total is ₹${total}`
+                  : `Your total is ₹${total + 70}`
+              }
+              amount={total >= 500 ? total * 100 : (total + 70) * 100}
               token={onToken}
               stripeKey={KEY}
             >
-              <Button>CHECKOUT NOW</Button>
-            </StripeCheckout>
+             
+            </StripeCheckout> */}
+            <Button onClick={handlee}>CHECKOUT NOW</Button>
           </Summary>
         </Bottom>
       </Wrapper>
